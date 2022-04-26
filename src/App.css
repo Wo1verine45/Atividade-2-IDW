@@ -6,4 +6,31 @@
 
 :root {
   font-family: Arial, sans-serif;
+  --color-base-hue-red: 358;
+  --color-base-hue-yellow: 56;
+  --color-base-hue-green: 152;
+  --color-danger-hue-offset: 180;
+  --color-danger-hue-red: calc(
+    var(--color-base-hue-red) - var(--color-danger-hue-offset)
+  );
+  --color-danger-hue-yellow: calc(
+    var(--color-base-hue-yellow) - var(--color-danger-hue-offset)
+  );
+  --color-danger-hue-green: calc(
+    var(--color-base-hue-green) - var(--color-danger-hue-offset)
+  );
+  --color-background-yellow-dark: hsl(
+    var(--color-base-hue-yellow),
+    100%,
+    23.5%
+  );
+  --color-background-yellow-light: hsl(
+    var(--color-base-hue-yellow),
+    100%,
+    53.5%
+  );
+  --color-background-green-dark: hsl(var(--color-base-hue-green), 100%, 23.5%);
+  --color-background-green-light: hsl(var(--color-base-hue-green), 100%, 53.5%);
+  --color-background-red-dark: hsl(var(--color-base-hue-red), 83%, 56.1%);
+  --color-background-red-light: hsl(var(--color-base-hue-red), 83%, 56.1%);
 }
