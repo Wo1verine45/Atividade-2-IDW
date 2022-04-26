@@ -1,0 +1,31 @@
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+}
+
+.footer-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem;
+}
+
+.footer-item a {
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+}
+
+.footer-item a:hover {
+  color: gray;
+}
+
+.footer-item a img {
+  padding-left: 5px;
+  height: 15px;
+}
