@@ -5,7 +5,7 @@ import "./home.css";
 function Home() {
   return (
     <div>
-      <Header />
+      <Header note={true} home={true} />
       <div className="main-body">
         <div className="vision-div">
           <h2 className="vision-title" id="vision">

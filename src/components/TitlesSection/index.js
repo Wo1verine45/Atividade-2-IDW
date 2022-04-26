@@ -1,1 +1,1 @@
-export { TitlesSection } from './TitlesSection'
+export { TitlesSection } from "./TitlesSection";

@@ -1,0 +1,102 @@
+.main-nav {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  background-color: rgb(166, 68, 66);
+}
+
+.nav-item-red,
+.empresa-information,
+.IMC-information {
+  background-color: hsl(var(--color-base-hue-red), 83%, 56.1%);
+  color: hsl(var(--color-danger-hue-red), 83%, 56.1%);
+}
+
+.nav-item-red:hover,
+.empresa-information:hover,
+.nav-item-red a:hover,
+.IMC-information:hover {
+  background-color: hsl(var(--color-base-hue-red), 83%, 40%);
+  color: hsl(var(--color-danger-hue-red), 83%, 60%);
+}
+
+.nav-item-red {
+  padding: 10px 0px;
+}
+
+.nav-item-red a {
+  color: hsl(var(--color-danger-hue-red), 83%, 56.1%);
+}
+
+.nav-item-yellow,
+.nav-item-yellow a {
+  padding: 10px 0px;
+  background-color: hsl(var(--color-base-hue-yellow), 100%, 53.5%);
+  color: hsl(var(--color-danger-hue-yellow), 100%, 53.5%);
+}
+
+.nav-item-yellow a:hover,
+.nav-item-yellow:hover {
+  color: hsl(var(--color-danger-hue-yellow), 100%, 60%);
+  background-color: hsl(var(--color-base-hue-yellow), 100%, 40%);
+}
+
+.nav-item-green {
+  padding: 10px 0px;
+}
+
+.nav-item-green,
+.more-options,
+.nav-item-green a {
+  background-color: hsl(var(--color-base-hue-green), 100%, 32.9%);
+  color: hsl(var(--color-danger-hue-green), 100%, 32.9%);
+}
+
+.nav-item-green:hover,
+.more-options:hover,
+.nav-item-green a:hover {
+  background-color: hsl(var(--color-base-hue-green), 100%, 20%);
+  color: hsl(var(--color-danger-hue-green), 100%, 40%);
+}
+
+.nav-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  border-collapse: collapse;
+}
+
+.nav-list select {
+  padding: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.nav-list a {
+  text-decoration: none;
+  padding: 10px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-collapse: collapse;
+}
+
+@media (max-width: 415px) {
+  .nav-list {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .nav-item-red,
+  .empresa-information,
+  .IMC-information,
+  .nav-item-yellow,
+  .nav-item-green {
+    margin-top: 1rem;
+    border: 1px solid black;
+  }
+
+  .nav-item-green:last-child {
+    margin-bottom: 1rem;
+  }
+}
