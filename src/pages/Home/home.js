@@ -1,9 +1,11 @@
 import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header";
 import "./home.css";
 
 function Home() {
   return (
     <div>
+      <Header />
       <div className="main-body">
         <div className="vision-div">
           <h2 className="vision-title" id="vision">

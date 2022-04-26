@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Rubik:wght@500&display=swap");
+
+.titles {
+  flex-direction: column;
+  background-image: url("../../assets/banner.png");
+  background-repeat: no-repeat;
+  background-size: 100vw 50vh;
+  z-index: -1;
+}
+
+.title-container {
+  z-index: 0;
+  background-color: rgba(50, 236, 230, 0.8);
+  width: 40vw;
+  padding: 0.1rem;
+}
+
+.title,
+.subtitle,
+.note {
+  z-index: 1;
+  margin: 0.5rem;
+  font-family: "Rubik";
+  font-weight: bolder;
+}
+
+.title {
+  color: hsl(var(--color-base-hue-red), 83%, 56.1%);
+}
+
+.subtitle {
+  color: hsl(var(--color-base-hue-yellow), 100%, 53.5%);
+}
+
+.note {
+  color: hsl(var(--color-base-hue-green), 100%, 32.9%);
+}
+
+@media (max-width: 415px) {
+  .title-container {
+    width: 43vw;
+  }
+}
