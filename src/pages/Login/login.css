@@ -1,0 +1,75 @@
+.login-body {
+  background: linear-gradient(
+    to right,
+    var(--color-background-yellow-dark),
+    var(--color-background-yellow-light)
+  );
+}
+
+/* main-container se encontra nos 2 */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3.84rem;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgba(18, 34, 255, 0.6);
+}
+
+.login-title {
+  margin: 1rem;
+  color: hsl(var(--color-base-hue-yellow), 100%, 53.5%);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.login-form label {
+  margin: 0.5rem 2rem;
+  color: hsl(var(--color-base-hue-yellow), 100%, 43.5%);
+}
+
+.login-form input {
+  margin: 0rem 2rem;
+  border-radius: 0.5rem;
+  padding: 5px;
+  color: hsl(var(--color-base-hue-yellow), 100%, 63.5%);
+  background-color: rgba(18, 34, 255, 0.1);
+  border: 1px solid hsl(var(--color-danger-hue-yellow), 100%, 73.5%);
+}
+
+.login-form > input:focus {
+  border-color: var(--border-color-blue);
+}
+
+.login-btn {
+  text-decoration: none;
+  color: hsl(var(--color-base-hue-yellow), 100%, 43.5%);
+  margin: 0rem 2rem;
+  border: 1px solid hsl(var(--color-danger-hue-yellow), 100%, 73.5%);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.login-btn:hover {
+  background-color: rgba(18, 34, 255, 0.4);
+}
+
+.sign-in-phrase {
+  margin: 0rem 2rem;
+  color: hsl(var(--color-base-hue-yellow), 100%, 43.5%);
+}
+
+.click-here-sign-in {
+  margin: 0.5rem 2rem;
+}

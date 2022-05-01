@@ -1,0 +1,71 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3.84rem;
+}
+
+.sign-in-body {
+  background: linear-gradient(
+    to right,
+    var(--color-background-green-dark),
+    var(--color-background-green-light)
+  );
+}
+
+.sign-in-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgba(168, 0, 78, 0.6);
+}
+
+.sign-in-title {
+  margin: 1rem;
+  color: hsl(var(--color-base-hue-green), 100%, 53.5%);
+}
+
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.sign-in-form label {
+  margin: 0.5rem 2rem;
+  color: hsl(var(--color-base-hue-green), 100%, 43.5%);
+}
+
+.sign-in-form input,
+.sign-in-form select {
+  margin: 0rem 2rem;
+  border-radius: 0.5rem;
+  padding: 5px;
+  color: hsl(var(--color-base-hue-green), 100%, 63.5%);
+  background-color: rgba(168, 0, 78, 0.6);
+  border: 1px solid hsl(var(--color-danger-hue-green), 100%, 73.5%);
+}
+
+.sign-in-btn {
+  text-decoration: none;
+  color: hsl(var(--color-base-hue-green), 100%, 43.5%);
+  margin: 0rem 2rem;
+  border: 1px solid hsl(var(--color-danger-hue-green), 100%, 73.5%);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.sign-in-btn:hover {
+  background-color: rgba(168, 0, 78, 0.4);
+}
+
+.login-phrase {
+  margin: 0rem 2rem;
+  color: hsl(var(--color-base-hue-green), 100%, 43.5%);
+}
+
+.click-here-login {
+  margin: 0.5rem 2rem;
+}

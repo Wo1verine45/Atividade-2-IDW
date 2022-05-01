@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Navigation.css";
 
 export function Navigation({ imc, signin, login, home }) {
@@ -24,12 +25,14 @@ export function Navigation({ imc, signin, login, home }) {
             <a href="#contacts">Contatos</a>
           </li>
           <li className="nav-item-green">
-            <a href="login.html">Login</a>
+            <Link className="a" to="/login">
+              <button>Login</button>
+            </Link>
           </li>
           <li className="nav-item-green">
-            <a href="signIn.html" class="signIn-btn">
-              Cadastro
-            </a>
+            <Link className="a" to="/signin">
+              <button>Cadastro</button>
+            </Link>
           </li>
         </ul>
       </nav>
@@ -41,11 +44,15 @@ export function Navigation({ imc, signin, login, home }) {
           <li className="nav-item-red">
             <a href="#contacts">Contatos</a>
           </li>
-          <li className="nav-item-yellow">
-            <a href="signIn.html">Cadastro</a>
+          <li className="nav-item-yellow2">
+            <Link className="a2" to="/signin">
+              <button>Cadastro</button>
+            </Link>
           </li>
           <li className="nav-item-green">
-            <a href="home.html">Sair</a>
+            <Link className="a" to="/">
+              <button>Sair</button>
+            </Link>
           </li>
         </ul>
       </nav>
@@ -57,11 +64,15 @@ export function Navigation({ imc, signin, login, home }) {
           <li className="nav-item-red">
             <a href="#contacts">Contatos</a>
           </li>
-          <li className="nav-item-yellow">
-            <a href="login.html">Login</a>
+          <li className="nav-item-yellow2">
+            <Link className="a2" to="/login">
+              <button>Login</button>
+            </Link>
           </li>
           <li className="nav-item-green">
-            <a href="home.html">Sair</a>
+            <Link className="a" to="/">
+              <button>Sair</button>
+            </Link>
           </li>
         </ul>
       </nav>

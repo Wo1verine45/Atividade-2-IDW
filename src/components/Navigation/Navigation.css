@@ -34,26 +34,44 @@
   color: hsl(var(--color-danger-hue-yellow), 100%, 53.5%);
 }
 
+.nav-item-yellow2 button {
+  padding: 10px 10px;
+  background-color: hsl(var(--color-base-hue-yellow), 100%, 53.5%);
+  color: hsl(var(--color-danger-hue-yellow), 100%, 53.5%);
+  border: none;
+  cursor: pointer;
+}
+
 .nav-item-yellow a:hover,
 .nav-item-yellow:hover {
   color: hsl(var(--color-danger-hue-yellow), 100%, 60%);
   background-color: hsl(var(--color-base-hue-yellow), 100%, 40%);
 }
 
-.nav-item-green {
-  padding: 10px 0px;
+.nav-item-yellow2 button:hover {
+  color: hsl(var(--color-danger-hue-yellow), 100%, 60%);
+  background-color: hsl(var(--color-base-hue-yellow), 100%, 40%);
 }
 
-.nav-item-green,
 .more-options,
-.nav-item-green a {
+.nav-item-green button {
   background-color: hsl(var(--color-base-hue-green), 100%, 32.9%);
   color: hsl(var(--color-danger-hue-green), 100%, 32.9%);
+  border: none;
+  padding: 10px 10px;
+  cursor: pointer;
 }
 
-.nav-item-green:hover,
+.a {
+  background-color: hsl(var(--color-base-hue-green), 100%, 32.9%);
+}
+
+.a2 {
+  background-color: hsl(var(--color-base-hue-yellow), 100%, 53.5%);
+}
+
 .more-options:hover,
-.nav-item-green a:hover {
+.nav-item-green button:hover {
   background-color: hsl(var(--color-base-hue-green), 100%, 20%);
   color: hsl(var(--color-danger-hue-green), 100%, 40%);
 }

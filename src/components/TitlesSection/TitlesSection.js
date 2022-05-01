@@ -1,7 +1,7 @@
 import "./TitlesSection.css";
 
 export function TitlesSection({ note }) {
-  if (note) {
+  if (note === true) {
     return (
       <div className="titles">
         <div className="title-container">
@@ -15,7 +15,7 @@ export function TitlesSection({ note }) {
         </div>
       </div>
     );
-  } else {
+  } else if (note === false) {
     return (
       <div className="titles">
         <div className="title-container">
