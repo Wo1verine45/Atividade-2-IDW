@@ -212,20 +212,32 @@ class SignIn extends Component {
                 <label htmlFor="UF">UF: </label>
                 <select name="UF" id="UF">
                   <option value="">Escolha um estado...</option>
+                  {this.state.listaEstados.map((item) => (
+                    <option key={item.uf} value={item.uf}>
+                      {item.nome}
+                    </option>
+                  ))}
                 </select>
                 <br />
                 <label htmlFor="password">Senha: </label>
                 <input type="password" name="password" id="password" />
                 <br />
                 <div>
-                  <input type="checkbox" id="cadastroDeAcordo" onChange={this.aceitarTermo}/>
+                  <input
+                    type="checkbox"
+                    id="cadastroDeAcordo"
+                    onChange={this.aceitarTermo}
+                  />
                   <label htmlFor="cadastroDeAcordo">
                     Estou de acordo com os termos
                   </label>
                 </div>
                 <br />
                 <Link to="/login">
-                  <button className="sign-in-btn" disabled={!this.state.formCadastro.aceito}>
+                  <button
+                    className="sign-in-btn"
+                    disabled={!this.state.formCadastro.aceito}
+                  >
                     Enviar
                   </button>
                 </Link>

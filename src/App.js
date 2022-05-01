@@ -21,4 +21,5 @@ export default App;
     4 modelos pra usar nas 4 páginas que vão ter)
   - ver a questão da navegação através do dropdown menu parar de funcionar em react
   - talvez refazer os botões da navegação pq os estilos ficaram zoados com a adição do Link
+  - tentar arrumar o CSS do checkbox
 */
