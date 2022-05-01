@@ -94,7 +94,7 @@ td {
   border: 1px solid hsl(var(--color-danger-hue-red), 83%, 76.1%);
 }
 
-.error-message {
+.invalid-feedback {
   margin: 0.75rem 2rem;
   color: hsl(var(--color-base-hue-red), 83%, 46.1%);
 }
@@ -111,9 +111,4 @@ td {
 
 .IMC-btn:hover {
   background-color: rgba(50, 236, 230, 0.4);
-}
-
-.IMC-result {
-  margin: 0.75rem 2rem;
-  color: hsl(var(--color-base-hue-red), 83%, 46.1%);
 }

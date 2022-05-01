@@ -14,6 +14,8 @@ function App() {
 
 export default App;
 
+//TODO: arrumar o CSS do modal
+
 /* transformar em componentes: 
   - forms (com a opção de escolher quais campos vão ter)
   - coloquei o nav mas n do jeito que eu queria (com 

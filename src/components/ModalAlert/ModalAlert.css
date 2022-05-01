@@ -1,0 +1,29 @@
+.modal {
+  background: linear-gradient(
+    to right,
+    var(--color-background-red-dark),
+    var(--color-background-red-light)
+  );
+}
+
+.modal-title {
+  color: hsl(var(--color-danger-hue-red), 83%, 46.1%);
+}
+
+.modal-body {
+  color: hsl(var(--color-danger-hue-red), 83%, 46.1%);
+}
+
+.modal-btn {
+  cursor: pointer;
+  color: hsl(var(--color-base-hue-red), 83%, 46.1%);
+  margin: 0rem 2rem;
+  border: 1px solid hsl(var(--color-danger-hue-red), 83%, 76.1%);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(50, 236, 230, 0.1);
+}
+
+.modal-btn:hover {
+  background-color: rgba(50, 236, 230, 0.4);
+}
