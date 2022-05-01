@@ -12,14 +12,14 @@ function Login() {
           <div className="login-container">
             <h2 className="login-title">Login</h2>
             <form className="login-form">
-              <label for="full-name">Nome Completo:</label>
-              <input type="text" name="full-name" />
+              <label htmlFor="full-name">Nome Completo:</label>
+              <input type="text" name="full-name" id="full-name"/>
               <br />
-              <label for="CPF">CPF:</label>
-              <input type="number" name="CPF" />
+              <label htmlFor="CPF">CPF:</label>
+              <input type="number" name="CPF" id="CPF"/>
               <br />
-              <label for="password">Senha: </label>
-              <input type="password" name="password" />
+              <label htmlFor="password">Senha: </label>
+              <input type="password" name="password" id="password"/>
               <br />
               <Link to="/imc">
                 <button className="login-btn">Enviar</button>

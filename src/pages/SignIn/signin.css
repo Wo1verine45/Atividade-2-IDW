@@ -49,12 +49,14 @@
 }
 
 .sign-in-btn {
+  background-color: rgba(168, 0, 78, 0.1);
   text-decoration: none;
   color: hsl(var(--color-base-hue-green), 100%, 43.5%);
   margin: 0rem 2rem;
   border: 1px solid hsl(var(--color-danger-hue-green), 100%, 73.5%);
   padding: 0.5rem;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .sign-in-btn:hover {

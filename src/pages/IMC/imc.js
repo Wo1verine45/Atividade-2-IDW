@@ -62,20 +62,22 @@ function IMC() {
             Cálculo de IMC
           </h2>
           <form className="IMC-form">
-            <label for="weight-input">Digite seu peso aqui: </label>
+            <label htmlFor="weight-input">Digite seu peso aqui: </label>
             <input
               type="number"
               name="weight-input"
               value=""
               data-weight-input
+              id="weight-input"
             />
             <br />
-            <label for="height-input">Digite sua altura aqui: </label>
+            <label htmlFor="height-input">Digite sua altura aqui: </label>
             <input
               type="number"
               name="height-input"
               value=""
               data-height-input
+              id="height-input"
             />
             <br />
             <div className="error-message" data-error-message></div>
