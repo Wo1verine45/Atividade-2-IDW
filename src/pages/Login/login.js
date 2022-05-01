@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import "./login.css";
@@ -20,9 +21,9 @@ function Login() {
               <label for="password">Senha: </label>
               <input type="password" name="password" />
               <br />
-              <a className="login-btn" href="index.html">
-                Enviar
-              </a>
+              <Link to="/imc">
+                <button className="login-btn">Enviar</button>
+              </Link>
               <br />
               <div className="sign-in-phrase">Não é cadastrado ainda?</div>
               <a className="click-here-sign-in" href="signIn.html">

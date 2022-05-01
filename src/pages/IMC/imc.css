@@ -1,0 +1,119 @@
+.index-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background: linear-gradient(
+    to right,
+    var(--color-background-red-dark),
+    var(--color-background-red-light)
+  );
+}
+
+.IMC-def-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.IMC-def-div p {
+  margin: 1rem 7rem;
+  color: hsl(var(--color-danger-hue-red), 83%, 46.1%);
+}
+
+.IMC-def {
+  margin-top: 1rem;
+  color: hsl(var(--color-danger-hue-red), 83%, 56.1%);
+}
+
+.IMC-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+  color: hsl(var(--color-danger-hue-red), 83%, 56.1%);
+}
+
+table,
+th,
+td {
+  border: 0.5px solid black;
+  border-collapse: collapse;
+  color: hsl(var(--color-danger-hue-red), 83%, 46.1%);
+  padding: 0.5rem;
+}
+
+.color-1 {
+  background-color: hsl(var(--color-base-hue-red), 83%, 36.1%);
+}
+
+.color-2 {
+  background-color: hsl(var(--color-base-hue-red), 83%, 66.1%);
+}
+
+@media (max-width: 415px) {
+  .IMC-def-div p {
+    margin: 1rem;
+  }
+}
+
+.IMC-calc-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: rgba(50, 236, 230, 0.6);
+}
+
+.IMC-calc {
+  margin: 1rem;
+  color: hsl(var(--color-base-hue-red), 83%, 56.1%);
+}
+
+.IMC-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.IMC-form label {
+  margin: 0.5rem 2rem;
+  color: hsl(var(--color-base-hue-red), 83%, 46.1%);
+}
+
+.IMC-form input {
+  margin: 0rem 2rem;
+  border-radius: 0.5rem;
+  padding: 5px;
+  color: hsl(var(--color-base-hue-red), 83%, 46.1%);
+  background-color: rgba(50, 236, 230, 0.1);
+  border: 1px solid hsl(var(--color-danger-hue-red), 83%, 76.1%);
+}
+
+.error-message {
+  margin: 0.75rem 2rem;
+  color: hsl(var(--color-base-hue-red), 83%, 46.1%);
+}
+
+.IMC-btn {
+  cursor: pointer;
+  color: hsl(var(--color-base-hue-red), 83%, 46.1%);
+  margin: 0rem 2rem;
+  border: 1px solid hsl(var(--color-danger-hue-red), 83%, 76.1%);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(50, 236, 230, 0.1);
+}
+
+.IMC-btn:hover {
+  background-color: rgba(50, 236, 230, 0.4);
+}
+
+.IMC-result {
+  margin: 0.75rem 2rem;
+  color: hsl(var(--color-base-hue-red), 83%, 46.1%);
+}

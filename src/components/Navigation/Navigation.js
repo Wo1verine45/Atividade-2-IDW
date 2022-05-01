@@ -97,7 +97,9 @@ export function Navigation({ imc, signin, login, home }) {
             <a href="#contacts">Contatos</a>
           </li>
           <li className="nav-item-green">
-            <a href="home.html">Sair</a>
+            <Link className="a" to="/">
+              <button>Sair</button>
+            </Link>
           </li>
         </ul>
       </nav>
