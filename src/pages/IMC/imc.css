@@ -85,13 +85,16 @@ td {
   color: hsl(var(--color-base-hue-red), 83%, 46.1%);
 }
 
+.is-invalid {
+  border-color: red;
+}
+
 .IMC-form input {
   margin: 0rem 2rem;
   border-radius: 0.5rem;
   padding: 5px;
   color: hsl(var(--color-base-hue-red), 83%, 46.1%);
   background-color: rgba(50, 236, 230, 0.1);
-  border: 1px solid hsl(var(--color-danger-hue-red), 83%, 76.1%);
 }
 
 .invalid-feedback {

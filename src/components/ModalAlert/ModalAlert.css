@@ -8,22 +8,24 @@
 
 .modal-title {
   color: hsl(var(--color-danger-hue-red), 83%, 46.1%);
+  padding: .5rem 20rem;
 }
 
 .modal-body {
   color: hsl(var(--color-danger-hue-red), 83%, 46.1%);
+  padding: 0rem 11.91rem;
 }
 
 .modal-btn {
   cursor: pointer;
   color: hsl(var(--color-base-hue-red), 83%, 46.1%);
-  margin: 0rem 2rem;
   border: 1px solid hsl(var(--color-danger-hue-red), 83%, 76.1%);
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background-color: rgba(50, 236, 230, 0.1);
+  margin: 0.5rem 21rem;
+  background-color: rgba(50, 236, 230, 0.6);
 }
 
 .modal-btn:hover {
-  background-color: rgba(50, 236, 230, 0.4);
+  background-color: rgba(50, 236, 230, 0.9);
 }

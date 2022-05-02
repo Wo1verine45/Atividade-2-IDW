@@ -1,8 +1,10 @@
 import { Component } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
+import CadastroApi from "../../Services/CadastroApi";
 import EnderecoApi from "../../Services/EnderecoApi";
+import InputMask from "react-input-mask";
 import "./signin.css";
 
 class SignIn extends Component {
@@ -13,15 +15,45 @@ class SignIn extends Component {
       formCadastro: {
         aceito: false,
         nomeCompleto: "",
+        dataNascimento: "",
+        sexo: "",
+        cpf: "",
+        //ADICIONAR NOVO AQUI
+        logradouro: "",
+        numeroLogradouro: "",
+        //estado: "",
+        cidade: "",
+        cep: "",
+      },
+      erros: {
+        nomeCompleto: [],
+        dataNascimento: [],
+        sexo: [],
+        cpf: [],
+        logradouro: [],
+        numeroLogradouro: [],
+        cep: [],
+        cidade: [],
+        //ADICIONAR NOVO AQUI
       },
     };
   }
 
+  escutadorDeInputFormCadastro = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      formCadastro: {
+        ...this.state.formCadastro,
+        ...{ [name]: value.replaceAll(".", "").replace("-", "") },
+      },
+    });
+  };
+
   aceitarTermo = () => {
     this.setState({
       formCadastro: {
-        aceito: !this.state.formCadastro.aceito,
-        nomeCompleto: this.state.formCadastro.nomeCompleto,
+        ...this.state.formCadastro,
+        ...{ aceito: !this.state.formCadastro.aceito },
       },
     });
   };
@@ -32,7 +64,84 @@ class SignIn extends Component {
     );
   }
 
+  /*verificaCep(cep) {
+    EnderecoApi.getEndereco(cep).then((resp) =>
+      this.setState({
+        logradouro: resp.logradouro,
+        estado: resp.uf,
+        cidade: resp.localidade,
+        nomeCompleto: this.state.formCadastro.nomeCompleto,
+        aceito: this.state.formCadastro.aceito,
+        cep: this.state.formCadastro.cep,
+      })
+    );
+  }
+  */
+
+  resetErros = () => {
+    const erros = "erros";
+    this.setState({
+      //ADICIONAR NOVO AQUI
+      [erros]: {
+        nomeCompleto: [],
+        dataNascimento: [],
+        sexo: [],
+        cpf: [],
+        logradouro: [],
+        numeroLogradouro: [],
+        cep: [],
+        cidade: [],
+      },
+    });
+  };
+
+  enviarFormularioCadastro = () => {
+    this.resetErros();
+    CadastroApi.cadastrar(this.state.formCadastro)
+      .then((r) => {
+        alert('Deu certo"');
+      })
+      .catch((e) => {
+        console.log("erro de enviar cadastro:", e.response);
+        if (e.response && e.response.status === 422) {
+          let errosFormCadastro = {};
+          Object.entries(e.response.data.errors).forEach((obj, index) => {
+            console.log("objeto:", obj);
+            index === 0 && document.querySelector(`[name=${[obj[0]]}`).focus();
+            errosFormCadastro = { ...errosFormCadastro, [obj[0]]: [obj[1]] };
+          });
+          this.setState({
+            erros: { ...this.state.erros, ...errosFormCadastro },
+          });
+        } else if (e.response && e.response.data && e.response.data.message) {
+          this.alert("Cálculo de IMC", e.response.data.message);
+        } else {
+          this.alert(
+            "Cálculo de IMC",
+            "Ocorreu um erro ao tentar calcular seu IMC."
+          );
+          console.log(e);
+        }
+      });
+  };
+
   render() {
+    const formCadastro = this.state.formCadastro;
+
+    //ADICIONAR NOVO AQUI
+    console.log("valor do nome completo:", formCadastro.nomeCompleto);
+    console.log("valor da data de nascimento:", formCadastro.dataNascimento);
+    console.log("valor do sexo:", formCadastro.sexo);
+    console.log("valor do cpf:", formCadastro.cpf);
+    console.log("valor do logradouro:", formCadastro.logradouro);
+    console.log(
+      "valor do número do logradouro:",
+      formCadastro.numeroLogradouro
+    );
+    console.log("valor do cep:", formCadastro.cep);
+    console.log("valor da cidade:", formCadastro.cidade);
+    //console.log(this.state.formCadastro.cep);
+
     return (
       <div>
         <Header note={false} signin={true} />
@@ -42,32 +151,134 @@ class SignIn extends Component {
               <h2 className="sign-in-title">Cadastro</h2>
               <form className="sign-in-form">
                 <label htmlFor="full-name">Nome Completo:</label>
-                <input type="text" name="full-name" id="full-name" />
+                <input
+                  type="text"
+                  value={formCadastro.nomeCompleto}
+                  name="nomeCompleto"
+                  onChange={this.escutadorDeInputFormCadastro}
+                  className={
+                    this.state.erros.nomeCompleto.length > 0
+                      ? " is-invalid"
+                      : ""
+                  }
+                  id="full-name"
+                  placeholder="Pedro Ronaldo Moreira Travessin"
+                />
+                <div className="invalid-feedback-cadastro">
+                  {this.state.erros.nomeCompleto.map((item, index) => (
+                    <div key={index}>{item}</div>
+                  ))}
+                </div>
                 <br />
                 <label htmlFor="birthday">Data de Nascimento: </label>
-                <input type="date" name="birthday" id="birthday" />
+                <input
+                  type="date"
+                  value={formCadastro.dataNascimento}
+                  name="dataNascimento"
+                  onChange={this.escutadorDeInputFormCadastro}
+                  className={
+                    this.state.erros.dataNascimento.length > 0
+                      ? " is-invalid"
+                      : ""
+                  }
+                  id="birthday"
+                />
+                <div className="invalid-feedback-cadastro">
+                  {this.state.erros.dataNascimento.map((item, index) => (
+                    <div key={index}>{item}</div>
+                  ))}
+                </div>
                 <br />
                 <label htmlFor="gender">Sexo:</label>
-                <select name="gender-dropdown" id="gender">
-                  <option>Escolha um sexo...</option>
-                  <option value="male">Masculino</option>
-                  <option value="female">Feminino</option>
-                </select>
+                <div
+                  className={
+                    this.state.erros.sexo.length > 0 ? " is-invalid" : ""
+                  }
+                >
+                  <select
+                    value={formCadastro.sexo}
+                    name="sexo"
+                    onChange={this.escutadorDeInputFormCadastro}
+                    id="gender"
+                  >
+                    <option>Escolha um sexo...</option>
+                    <option
+                      value="M"
+                      onChange={this.escutadorDeInputFormCadastro}
+                    >
+                      Masculino
+                    </option>
+                    <option
+                      value="F"
+                      onChange={this.escutadorDeInputFormCadastro}
+                    >
+                      Feminino
+                    </option>
+                  </select>
+                </div>
+                <div className="invalid-feedback-cadastro">
+                  {this.state.erros.sexo.map((item, index) => (
+                    <div key={index}>{item}</div>
+                  ))}
+                </div>
                 <br />
                 <label htmlFor="CPF">CPF:</label>
-                <input type="number" name="CPF" id="CPF" />
+                <InputMask
+                  type="text"
+                  value={formCadastro.cpf}
+                  name="cpf"
+                  onChange={this.escutadorDeInputFormCadastro}
+                  className={
+                    this.state.erros.cpf.length > 0 ? " is-invalid" : ""
+                  }
+                  id="CPF"
+                  placeholder="111.111.111-11"
+                  mask="999.999.999-99"
+                  maskChar={null}
+                />
+                <div className="invalid-feedback-cadastro">
+                  {this.state.erros.cpf.map((item, index) => (
+                    <div key={index}>{item}</div>
+                  ))}
+                </div>
                 <br />
                 <label htmlFor="logradouro">Logradouro: </label>
-                <input type="text" name="logradouro" id="logradouro" />
-                <br />
-                <label htmlFor="logradouro-number">
-                  Número do logradouro:{" "}
-                </label>
                 <input
-                  type="number"
-                  name="logradouro-number"
-                  id="logradouro-number"
+                  type="text"
+                  value={formCadastro.logradouro}
+                  name="logradouro"
+                  onChange={this.escutadorDeInputFormCadastro}
+                  className={
+                    this.state.erros.logradouro.length > 0 ? " is-invalid" : ""
+                  }
+                  id="logradouro"
+                  placeholder="Rua do Teste"
                 />
+                <div className="invalid-feedback-cadastro">
+                  {this.state.erros.logradouro.map((item, index) => (
+                    <div key={index}>{item}</div>
+                  ))}
+                </div>
+                <br />
+                <label htmlFor="logradouro-number">Número do logradouro:</label>
+                <input
+                  type="text"
+                  value={formCadastro.numeroLogradouro}
+                  name="numeroLogradouro"
+                  onChange={this.escutadorDeInputFormCadastro}
+                  className={
+                    this.state.erros.numeroLogradouro.length > 0
+                      ? " is-invalid"
+                      : ""
+                  }
+                  id="logradouro-number"
+                  placeholder="111"
+                />
+                <div className="invalid-feedback-cadastro">
+                  {this.state.erros.numeroLogradouro.map((item, index) => (
+                    <div key={index}>{item}</div>
+                  ))}
+                </div>
                 <br />
                 <label htmlFor="bairro">Bairro: </label>
                 <select name="bairro-dropdown" id="bairro">
@@ -204,10 +415,47 @@ class SignIn extends Component {
                 </select>
                 <br />
                 <label htmlFor="CEP">CEP: </label>
-                <input type="number" name="CEP" id="CEP" />
+                <InputMask
+                  type="text"
+                  value={formCadastro.cep}
+                  name="cep"
+                  onChange={this.escutadorDeInputFormCadastro}
+                  className={
+                    this.state.erros.cep.length > 0 ? " is-invalid" : ""
+                  }
+                  //onBlur={this.verificaCep(this.state.formCadastro.cep)}
+                  //className={
+                  //  "form-control" +
+                  //  (this.state.erros.peso.length > 0 ? " is-invalid" : "")
+                  //}
+                  id="CEP"
+                  placeholder="01001-000"
+                  mask="99999-999"
+                  maskChar={null}
+                />
+                <div className="invalid-feedback-cadastro">
+                  {this.state.erros.cep.map((item, index) => (
+                    <div key={index}>{item}</div>
+                  ))}
+                </div>
                 <br />
                 <label htmlFor="city">Cidade: </label>
-                <input type="text" name="city" id="city" />
+                <input
+                  type="text"
+                  value={formCadastro.cidade}
+                  name="cidade"
+                  onChange={this.escutadorDeInputFormCadastro}
+                  className={
+                    this.state.erros.cidade.length > 0 ? " is-invalid" : ""
+                  }
+                  id="city"
+                  placeholder="Embu das Artes"
+                />
+                <div className="invalid-feedback-cadastro">
+                  {this.state.erros.cidade.map((item, index) => (
+                    <div key={index}>{item}</div>
+                  ))}
+                </div>
                 <br />
                 <label htmlFor="UF">UF: </label>
                 <select name="UF" id="UF">
@@ -233,20 +481,19 @@ class SignIn extends Component {
                   </label>
                 </div>
                 <br />
-                <Link to="/login">
-                  <button
-                    className="sign-in-btn"
-                    disabled={!this.state.formCadastro.aceito}
-                  >
-                    Enviar
-                  </button>
-                </Link>
-                <br />
                 <div className="login-phrase">Já possui cadastro?</div>
                 <a className="click-here-login" href="login.html">
                   Clique aqui!
                 </a>
               </form>
+              <br />
+              <button
+                className="sign-in-btn"
+                disabled={!this.state.formCadastro.aceito}
+                onClick={this.enviarFormularioCadastro}
+              >
+                Enviar
+              </button>
             </div>
           </div>
           <Footer />

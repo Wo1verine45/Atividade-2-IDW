@@ -127,8 +127,7 @@ class IMC extends Component {
                 name="peso"
                 onChange={this.escutadorDeInput}
                 className={
-                  "form-control" +
-                  (this.state.erros.peso.length > 0 ? " is-invalid" : "")
+                  this.state.erros.peso.length > 0 ? " is-invalid" : ""
                 }
                 id="pesoImc"
                 placeholder="080.0"
