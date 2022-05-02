@@ -146,7 +146,7 @@ class SignIn extends Component {
       });
     this.setState({
       formCadastro: {
-        aceito: false,
+        aceito: true,
         nomeCompleto: "",
         dataNascimento: "",
         sexo: "",
@@ -555,6 +555,7 @@ class SignIn extends Component {
                     type="checkbox"
                     id="cadastroDeAcordo"
                     onChange={this.aceitarTermo}
+                    checked={!formCadastro.aceito}
                   />
                   <label htmlFor="cadastroDeAcordo">
                     Estou de acordo com os termos
