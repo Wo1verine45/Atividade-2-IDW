@@ -48,8 +48,20 @@
 }
 
 .sign-in-form input,
-.sign-in-form select {
+.sign-in-form .select {
   margin: 0rem 2rem;
+  border-radius: 0.5rem;
+  padding: 5px;
+  color: hsl(var(--color-base-hue-green), 100%, 63.5%);
+  background-color: rgba(168, 0, 78, 0.6);
+}
+
+.div-select {
+  margin: 0rem 2rem;
+}
+
+.sign-in-form .select1 {
+  width: 100%;
   border-radius: 0.5rem;
   padding: 5px;
   color: hsl(var(--color-base-hue-green), 100%, 63.5%);

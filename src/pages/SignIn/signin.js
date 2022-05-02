@@ -1,19 +1,21 @@
-import { Component } from "react";
+import { Component, createRef } from "react";
 //import { Link } from "react-router-dom";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import CadastroApi from "../../Services/CadastroApi";
 import EnderecoApi from "../../Services/EnderecoApi";
 import InputMask from "react-input-mask";
+import ModalAlert from "../../components/ModalAlert/ModalAlert";
 import "./signin.css";
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
+    this.modalRef = createRef();
     this.state = {
       listaEstados: [],
       formCadastro: {
-        aceito: false,
+        aceito: true,
         nomeCompleto: "",
         dataNascimento: "",
         sexo: "",
@@ -21,9 +23,10 @@ class SignIn extends Component {
         //ADICIONAR NOVO AQUI
         logradouro: "",
         numeroLogradouro: "",
-        //estado: "",
+        uf: "",
         cidade: "",
         cep: "",
+        email: "",
       },
       erros: {
         nomeCompleto: [],
@@ -34,10 +37,16 @@ class SignIn extends Component {
         numeroLogradouro: [],
         cep: [],
         cidade: [],
+        uf: [],
+        email: [],
         //ADICIONAR NOVO AQUI
       },
     };
   }
+
+  mostrarModal = (title, body) => {
+    this.modalRef.current.handleShow({ show: true, title, body });
+  };
 
   escutadorDeInputFormCadastro = (event) => {
     const { name, value } = event.target;
@@ -45,6 +54,16 @@ class SignIn extends Component {
       formCadastro: {
         ...this.state.formCadastro,
         ...{ [name]: value.replaceAll(".", "").replace("-", "") },
+      },
+    });
+  };
+
+  escutadorDeInputFormCadastroData = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      formCadastro: {
+        ...this.state.formCadastro,
+        ...{ [name]: value },
       },
     });
   };
@@ -91,6 +110,8 @@ class SignIn extends Component {
         numeroLogradouro: [],
         cep: [],
         cidade: [],
+        uf: [],
+        email: [],
       },
     });
   };
@@ -99,14 +120,14 @@ class SignIn extends Component {
     this.resetErros();
     CadastroApi.cadastrar(this.state.formCadastro)
       .then((r) => {
-        alert('Deu certo"');
+        this.mostrarModal("Cálculo de IMC", r.data.message);
       })
       .catch((e) => {
-        console.log("erro de enviar cadastro:", e.response);
+        //console.log("erro de enviar cadastro:", e.response);
         if (e.response && e.response.status === 422) {
           let errosFormCadastro = {};
           Object.entries(e.response.data.errors).forEach((obj, index) => {
-            console.log("objeto:", obj);
+            //console.log("objeto:", obj);
             index === 0 && document.querySelector(`[name=${[obj[0]]}`).focus();
             errosFormCadastro = { ...errosFormCadastro, [obj[0]]: [obj[1]] };
           });
@@ -114,33 +135,50 @@ class SignIn extends Component {
             erros: { ...this.state.erros, ...errosFormCadastro },
           });
         } else if (e.response && e.response.data && e.response.data.message) {
-          this.alert("Cálculo de IMC", e.response.data.message);
+          this.mostrarModal("Erro:", e.response.data.message);
         } else {
-          this.alert(
-            "Cálculo de IMC",
+          this.mostrarModal(
+            "Erro:",
             "Ocorreu um erro ao tentar calcular seu IMC."
           );
           console.log(e);
         }
       });
+    this.setState({
+      formCadastro: {
+        aceito: false,
+        nomeCompleto: "",
+        dataNascimento: "",
+        sexo: "",
+        cpf: "",
+        //ADICIONAR NOVO AQUI
+        logradouro: "",
+        numeroLogradouro: "",
+        uf: "",
+        cidade: "",
+        cep: "",
+        email: "",
+      },
+    });
   };
 
   render() {
     const formCadastro = this.state.formCadastro;
 
     //ADICIONAR NOVO AQUI
-    console.log("valor do nome completo:", formCadastro.nomeCompleto);
-    console.log("valor da data de nascimento:", formCadastro.dataNascimento);
-    console.log("valor do sexo:", formCadastro.sexo);
-    console.log("valor do cpf:", formCadastro.cpf);
-    console.log("valor do logradouro:", formCadastro.logradouro);
-    console.log(
-      "valor do número do logradouro:",
-      formCadastro.numeroLogradouro
-    );
-    console.log("valor do cep:", formCadastro.cep);
-    console.log("valor da cidade:", formCadastro.cidade);
-    //console.log(this.state.formCadastro.cep);
+    //console.log("valor do nome completo:", formCadastro.nomeCompleto);
+    //console.log("valor da data de nascimento:", formCadastro.dataNascimento);
+    //console.log("valor do sexo:", formCadastro.sexo);
+    //console.log("valor do cpf:", formCadastro.cpf);
+    //console.log("valor do logradouro:", formCadastro.logradouro);
+    //console.log(
+    //  "valor do número do logradouro:",
+    //  formCadastro.numeroLogradouro
+    //);
+    //console.log("valor do cep:", formCadastro.cep);
+    //console.log("valor da cidade:", formCadastro.cidade);
+    //console.log("valor da uf:", formCadastro.uf);
+    //console.log("valor do email:", formCadastro.email);
 
     return (
       <div>
@@ -175,7 +213,7 @@ class SignIn extends Component {
                   type="date"
                   value={formCadastro.dataNascimento}
                   name="dataNascimento"
-                  onChange={this.escutadorDeInputFormCadastro}
+                  onChange={this.escutadorDeInputFormCadastroData}
                   className={
                     this.state.erros.dataNascimento.length > 0
                       ? " is-invalid"
@@ -192,10 +230,12 @@ class SignIn extends Component {
                 <label htmlFor="gender">Sexo:</label>
                 <div
                   className={
-                    this.state.erros.sexo.length > 0 ? " is-invalid" : ""
+                    "div-select" +
+                    (this.state.erros.sexo.length > 0 ? " is-invalid" : "")
                   }
                 >
                   <select
+                    className="select1"
                     value={formCadastro.sexo}
                     name="sexo"
                     onChange={this.escutadorDeInputFormCadastro}
@@ -281,7 +321,7 @@ class SignIn extends Component {
                 </div>
                 <br />
                 <label htmlFor="bairro">Bairro: </label>
-                <select name="bairro-dropdown" id="bairro">
+                <select name="bairro-dropdown" id="bairro" className="select">
                   <option>Escolha um bairro...</option>
                   <option>Água Morna</option>
                   <option>Capuava</option>
@@ -458,14 +498,54 @@ class SignIn extends Component {
                 </div>
                 <br />
                 <label htmlFor="UF">UF: </label>
-                <select name="UF" id="UF">
-                  <option value="">Escolha um estado...</option>
-                  {this.state.listaEstados.map((item) => (
-                    <option key={item.uf} value={item.uf}>
-                      {item.nome}
-                    </option>
+                <div
+                  className={
+                    "div-select" +
+                    (this.state.erros.uf.length > 0 ? " is-invalid" : "")
+                  }
+                >
+                  <select
+                    className="select1"
+                    value={formCadastro.uf}
+                    name="uf"
+                    onChange={this.escutadorDeInputFormCadastro}
+                    id="UF"
+                  >
+                    <option value="">Escolha um estado...</option>
+                    {this.state.listaEstados.map((item) => (
+                      <option
+                        onChange={this.escutadorDeInputFormCadastro}
+                        key={item.uf}
+                        value={item.uf}
+                      >
+                        {item.nome}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="invalid-feedback-cadastro">
+                  {this.state.erros.uf.map((item, index) => (
+                    <div key={index}>{item}</div>
                   ))}
-                </select>
+                </div>
+                <br />
+                <label htmlFor="email">E-mail:</label>
+                <input
+                  type="email"
+                  value={formCadastro.email}
+                  name="email"
+                  onChange={this.escutadorDeInputFormCadastroData}
+                  className={
+                    this.state.erros.email.length > 0 ? " is-invalid" : ""
+                  }
+                  id="email"
+                  placeholder="fulano@email.com"
+                />
+                <div className="invalid-feedback-cadastro">
+                  {this.state.erros.email.map((item, index) => (
+                    <div key={index}>{item}</div>
+                  ))}
+                </div>
                 <br />
                 <label htmlFor="password">Senha: </label>
                 <input type="password" name="password" id="password" />
@@ -488,12 +568,14 @@ class SignIn extends Component {
               </form>
               <br />
               <button
+                type="submit"
                 className="sign-in-btn"
-                disabled={!this.state.formCadastro.aceito}
+                disabled={this.state.formCadastro.aceito}
                 onClick={this.enviarFormularioCadastro}
               >
                 Enviar
               </button>
+              <ModalAlert ref={this.modalRef} />
             </div>
           </div>
           <Footer />
