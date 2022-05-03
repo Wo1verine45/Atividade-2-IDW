@@ -15,7 +15,7 @@ class ModalAlert extends Component {
     const { show, title, body } = this.state;
 
     return (
-      <Fragment className="frag">
+      <Fragment>
         <Modal show={show} onHide={this.handleClose} className="modal">
           <Modal.Header closeButton>
             <Modal.Title className="modal-title">{title}</Modal.Title>

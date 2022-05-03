@@ -1,5 +1,5 @@
 import { Component, createRef } from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import CadastroApi from "../../Services/CadastroApi";
@@ -83,19 +83,30 @@ class SignIn extends Component {
     );
   }
 
-  /*verificaCep(cep) {
-    EnderecoApi.getEndereco(cep).then((resp) =>
+  verificaCep(cep) {
+    if (
+      this.state.formCadastro.logradouro !== "" &&
+      this.state.formCadastro.cidade !== "" &&
+      this.state.formCadastro.uf !== ""
+    ) {
+      return;
+    }
+    EnderecoApi.getEndereco(cep).then((resp) => {
       this.setState({
-        logradouro: resp.logradouro,
-        estado: resp.uf,
-        cidade: resp.localidade,
-        nomeCompleto: this.state.formCadastro.nomeCompleto,
-        aceito: this.state.formCadastro.aceito,
-        cep: this.state.formCadastro.cep,
-      })
-    );
+        formCadastro: {
+          ...this.state.formCadastro,
+          ...{
+            logradouro: resp.data.logradouro,
+            cidade: resp.data.localidade,
+            uf: resp.data.uf,
+          },
+        },
+      });
+      //console.log("logradouro:", resp.data.logradouro)
+      //console.log("cidade:", resp.data.localidade)
+      //console.log("uf:", resp.data.uf)
+    });
   }
-  */
 
   resetErros = () => {
     const erros = "erros";
@@ -120,7 +131,7 @@ class SignIn extends Component {
     this.resetErros();
     CadastroApi.cadastrar(this.state.formCadastro)
       .then((r) => {
-        this.mostrarModal("Cálculo de IMC", r.data.message);
+        this.mostrarModal("Sucesso!", r.data.message);
       })
       .catch((e) => {
         //console.log("erro de enviar cadastro:", e.response);
@@ -144,6 +155,7 @@ class SignIn extends Component {
           console.log(e);
         }
       });
+    //talvez fazer um if pra ver se estão todos preenchidos
     this.setState({
       formCadastro: {
         aceito: true,
@@ -291,6 +303,7 @@ class SignIn extends Component {
                   className={
                     this.state.erros.logradouro.length > 0 ? " is-invalid" : ""
                   }
+                  onBlur={this.verificaCep(formCadastro.cep)}
                   id="logradouro"
                   placeholder="Rua do Teste"
                 />
@@ -464,10 +477,6 @@ class SignIn extends Component {
                     this.state.erros.cep.length > 0 ? " is-invalid" : ""
                   }
                   //onBlur={this.verificaCep(this.state.formCadastro.cep)}
-                  //className={
-                  //  "form-control" +
-                  //  (this.state.erros.peso.length > 0 ? " is-invalid" : "")
-                  //}
                   id="CEP"
                   placeholder="01001-000"
                   mask="99999-999"
@@ -488,6 +497,7 @@ class SignIn extends Component {
                   className={
                     this.state.erros.cidade.length > 0 ? " is-invalid" : ""
                   }
+                  onBlur={this.verificaCep(formCadastro.cep)}
                   id="city"
                   placeholder="Embu das Artes"
                 />
@@ -509,6 +519,7 @@ class SignIn extends Component {
                     value={formCadastro.uf}
                     name="uf"
                     onChange={this.escutadorDeInputFormCadastro}
+                    onBlur={this.verificaCep(formCadastro.cep)}
                     id="UF"
                   >
                     <option value="">Escolha um estado...</option>
@@ -563,9 +574,9 @@ class SignIn extends Component {
                 </div>
                 <br />
                 <div className="login-phrase">Já possui cadastro?</div>
-                <a className="click-here-login" href="login.html">
+                <Link className="click-here-login" to="/login">
                   Clique aqui!
-                </a>
+                </Link>
               </form>
               <br />
               <button
