@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./Navigation.css";
 
 export function Navigation({ imc, signin, login, home }) {
+  /* Parâmetros explicados no componente Header(cabeçalho) */
   if (home) {
     return (
       <nav className="main-nav">

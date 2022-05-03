@@ -20,7 +20,6 @@ class SignIn extends Component {
         dataNascimento: "",
         sexo: "",
         cpf: "",
-        //ADICIONAR NOVO AQUI
         logradouro: "",
         numeroLogradouro: "",
         uf: "",
@@ -39,7 +38,6 @@ class SignIn extends Component {
         cidade: [],
         uf: [],
         email: [],
-        //ADICIONAR NOVO AQUI
       },
     };
   }
@@ -48,6 +46,7 @@ class SignIn extends Component {
     this.modalRef.current.handleShow({ show: true, title, body });
   };
 
+  // Mesma função de atualizar os valores do input só que com a formatação para tirar os pontos e traços do CPF e CEP
   escutadorDeInputFormCadastro = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -58,6 +57,7 @@ class SignIn extends Component {
     });
   };
 
+  // Mesma função de acima, só que essa sendo usada somente para o campo de data e email, onde eu não quero que sejam tirados os pontos e traços
   escutadorDeInputFormCadastroData = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -68,6 +68,7 @@ class SignIn extends Component {
     });
   };
 
+  // Função para inverter o valor de aceito (true <=> false) ao clicar no checkbox
   aceitarTermo = () => {
     this.setState({
       formCadastro: {
@@ -77,12 +78,14 @@ class SignIn extends Component {
     });
   };
 
+  // Função para montar dinamicamente a lista de estados do dropdown menu
   componentDidMount() {
     EnderecoApi.getEstados().then((resp) =>
       this.setState({ listaEstados: resp.data })
     );
   }
 
+  // Função que pega o CEP e devolve o logradouro, cidade e UF já em seus respectivos inputs
   verificaCep(cep) {
     if (
       this.state.formCadastro.logradouro !== "" &&
@@ -102,16 +105,13 @@ class SignIn extends Component {
           },
         },
       });
-      //console.log("logradouro:", resp.data.logradouro)
-      //console.log("cidade:", resp.data.localidade)
-      //console.log("uf:", resp.data.uf)
     });
   }
 
+  // Mesma função de esvaziar as listas de erros
   resetErros = () => {
     const erros = "erros";
     this.setState({
-      //ADICIONAR NOVO AQUI
       [erros]: {
         nomeCompleto: [],
         dataNascimento: [],
@@ -127,6 +127,8 @@ class SignIn extends Component {
     });
   };
 
+  // Mesma função do calcular IMC só que agora cadastrando os dados do usuário, com a adição de resetar os inputs quando o cadastro é realizado com
+  // sucesso
   enviarFormularioCadastro = () => {
     this.resetErros();
     CadastroApi.cadastrar(this.state.formCadastro)
@@ -139,7 +141,6 @@ class SignIn extends Component {
             dataNascimento: "",
             sexo: "",
             cpf: "",
-            //ADICIONAR NOVO AQUI
             logradouro: "",
             numeroLogradouro: "",
             uf: "",
@@ -150,11 +151,9 @@ class SignIn extends Component {
         });
       })
       .catch((e) => {
-        //console.log("erro de enviar cadastro:", e.response);
         if (e.response && e.response.status === 422) {
           let errosFormCadastro = {};
           Object.entries(e.response.data.errors).forEach((obj, index) => {
-            //console.log("objeto:", obj);
             index === 0 && document.querySelector(`[name=${[obj[0]]}`).focus();
             errosFormCadastro = { ...errosFormCadastro, [obj[0]]: [obj[1]] };
           });
@@ -175,22 +174,6 @@ class SignIn extends Component {
 
   render() {
     const formCadastro = this.state.formCadastro;
-
-    //ADICIONAR NOVO AQUI
-    //console.log("valor do nome completo:", formCadastro.nomeCompleto);
-    //console.log("valor da data de nascimento:", formCadastro.dataNascimento);
-    //console.log("valor do sexo:", formCadastro.sexo);
-    //console.log("valor do cpf:", formCadastro.cpf);
-    //console.log("valor do logradouro:", formCadastro.logradouro);
-    //console.log(
-    //  "valor do número do logradouro:",
-    //  formCadastro.numeroLogradouro
-    //);
-    //console.log("valor do cep:", formCadastro.cep);
-    //console.log("valor da cidade:", formCadastro.cidade);
-    //console.log("valor da uf:", formCadastro.uf);
-    //console.log("valor do email:", formCadastro.email);
-
     return (
       <div>
         <Header note={false} signin={true} />
@@ -475,7 +458,6 @@ class SignIn extends Component {
                   className={
                     this.state.erros.cep.length > 0 ? " is-invalid" : ""
                   }
-                  //onBlur={this.verificaCep(this.state.formCadastro.cep)}
                   id="CEP"
                   placeholder="01001-000"
                   mask="99999-999"

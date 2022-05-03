@@ -22,7 +22,11 @@ class ModalAlert extends Component {
           </Modal.Header>
           <Modal.Body className="modal-body">{body}</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose} className="modal-btn">
+            <Button
+              variant="secondary"
+              onClick={this.handleClose}
+              className="modal-btn"
+            >
               Close
             </Button>
           </Modal.Footer>

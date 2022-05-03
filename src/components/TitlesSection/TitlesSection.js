@@ -1,6 +1,7 @@
 import "./TitlesSection.css";
 
 export function TitlesSection({ note }) {
+  /* Parâmetro explicado no componente Header */
   if (note === true) {
     return (
       <div className="titles">

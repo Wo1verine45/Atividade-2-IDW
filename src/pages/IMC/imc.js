@@ -2,6 +2,7 @@ import { Component, createRef } from "react";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import ImcApi from "../../Services/ImcApi";
+// InputMask é um input que deixa você padronizar o que pode ser inserido no input
 import InputMask from "react-input-mask";
 import "./imc.css";
 import ModalAlert from "../../components/ModalAlert/ModalAlert";
@@ -9,14 +10,17 @@ import ModalAlert from "../../components/ModalAlert/ModalAlert";
 class IMC extends Component {
   constructor(props) {
     super(props);
+    // Criação do Modal para substituir o alert
     this.modalRef = createRef();
     this.state = { altura: "", peso: "", erros: { altura: [], peso: [] } };
   }
 
+  // Função para mostrar o Modal
   mostrarModal = (title, body) => {
     this.modalRef.current.handleShow({ show: true, title, body });
   };
 
+  // Função que atualiza os valores dos inputs conforme adicionado valores
   escutadorDeInput = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -24,6 +28,7 @@ class IMC extends Component {
     });
   };
 
+  // Função para esvaziar a lista de erros
   resetErros = () => {
     const erros = "erros";
     this.setState({
@@ -31,6 +36,7 @@ class IMC extends Component {
     });
   };
 
+  // Função que calcula o IMC e pega os erros para serem mostrados na tela e para circular os inputs errados de vermelho
   calcularImc = () => {
     this.resetErros();
     const { altura, peso } = this.state;

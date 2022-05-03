@@ -8,7 +8,7 @@
 
 .modal-title {
   color: hsl(var(--color-danger-hue-red), 83%, 46.1%);
-  padding: .5rem 20rem;
+  padding: 0.5rem 20rem;
 }
 
 .modal-body {
