@@ -93,19 +93,20 @@ class SignIn extends Component {
       this.state.formCadastro.uf !== ""
     ) {
       return;
-    }
-    EnderecoApi.getEndereco(cep).then((resp) => {
-      this.setState({
-        formCadastro: {
-          ...this.state.formCadastro,
-          ...{
-            logradouro: resp.data.logradouro,
-            cidade: resp.data.localidade,
-            uf: resp.data.uf,
+    } else if (this.state.formCadastro.cep.length === 8) {
+      EnderecoApi.getEndereco(cep).then((resp) => {
+        this.setState({
+          formCadastro: {
+            ...this.state.formCadastro,
+            ...{
+              logradouro: resp.data.logradouro,
+              cidade: resp.data.localidade,
+              uf: resp.data.uf,
+            },
           },
-        },
+        });
       });
-    });
+    }
   }
 
   // Mesma função de esvaziar as listas de erros
