@@ -132,6 +132,22 @@ class SignIn extends Component {
     CadastroApi.cadastrar(this.state.formCadastro)
       .then((r) => {
         this.mostrarModal("Sucesso!", r.data.message);
+        this.setState({
+          formCadastro: {
+            aceito: true,
+            nomeCompleto: "",
+            dataNascimento: "",
+            sexo: "",
+            cpf: "",
+            //ADICIONAR NOVO AQUI
+            logradouro: "",
+            numeroLogradouro: "",
+            uf: "",
+            cidade: "",
+            cep: "",
+            email: "",
+          },
+        });
       })
       .catch((e) => {
         //console.log("erro de enviar cadastro:", e.response);
@@ -155,23 +171,6 @@ class SignIn extends Component {
           console.log(e);
         }
       });
-    //talvez fazer um if pra ver se estão todos preenchidos
-    this.setState({
-      formCadastro: {
-        aceito: true,
-        nomeCompleto: "",
-        dataNascimento: "",
-        sexo: "",
-        cpf: "",
-        //ADICIONAR NOVO AQUI
-        logradouro: "",
-        numeroLogradouro: "",
-        uf: "",
-        cidade: "",
-        cep: "",
-        email: "",
-      },
-    });
   };
 
   render() {
