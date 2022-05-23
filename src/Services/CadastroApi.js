@@ -7,6 +7,11 @@ const CadastroApi = {
       data
     );
   },
+  consultar: (cpf) => {
+    return axios.get(
+      `https://app.professordaniloalves.com.br/api/v1/cadastro/${cpf}`
+    );
+  },
 };
 
 export default CadastroApi;
