@@ -173,6 +173,19 @@ class SignIn extends Component {
       });
   };
 
+  // TODO: Quando eu crio um cadastro novo, ao clicar no botão de enviar, ele tá aparecendo o alert que deu certo, tem que ver se isso não vai 
+  //atrapalhar futuramente
+  buscaCadastro = (cpf) => {
+    if (this.state.formCadastro.cpf.length === 11) {
+      console.log(cpf)
+      CadastroApi.consultar(cpf)
+        .then((r) => alert(`Deu certo! Resposta: ${r}`))
+        .catch((e) => alert(`Deu errado! Erro: ${e}`));
+    } else {
+      return;
+    }
+  };
+
   render() {
     const formCadastro = this.state.formCadastro;
     return (
@@ -263,6 +276,7 @@ class SignIn extends Component {
                   value={formCadastro.cpf}
                   name="cpf"
                   onChange={this.escutadorDeInputFormCadastro}
+                  onBlur={this.buscaCadastro(formCadastro.cpf)}
                   className={
                     this.state.erros.cpf.length > 0 ? " is-invalid" : ""
                   }
