@@ -46,26 +46,27 @@ class SignIn extends Component {
     this.modalRef.current.handleShow({ show: true, title, body });
   };
 
-  // Mesma função de atualizar os valores do input só que com a formatação para tirar os pontos e traços do CPF e CEP
+  // Função atualizada com todos seus usos em um lugar só
   escutadorDeInputFormCadastro = (event) => {
     const { name, value } = event.target;
-    this.setState({
-      formCadastro: {
-        ...this.state.formCadastro,
-        ...{ [name]: value.replaceAll(".", "").replace("-", "") },
-      },
-    });
-  };
-
-  // Mesma função de acima, só que essa sendo usada somente para o campo de data e email, onde eu não quero que sejam tirados os pontos e traços
-  escutadorDeInputFormCadastroData = (event) => {
-    const { name, value } = event.target;
-    this.setState({
-      formCadastro: {
-        ...this.state.formCadastro,
-        ...{ [name]: value },
-      },
-    });
+    if (name === "cpf" || name === "cep") {
+      if (name === "cpf") {
+        this.buscaCadastro(value.replaceAll(".", "").replace("-", ""))
+      }
+      this.setState({
+        formCadastro: {
+          ...this.state.formCadastro,
+          ...{ [name]: value.replaceAll(".", "").replace("-", "") },
+        },
+      });
+    } else {
+      this.setState({
+        formCadastro: {
+          ...this.state.formCadastro,
+          ...{ [name]: value },
+        },
+      });
+    }
   };
 
   // Função para inverter o valor de aceito (true <=> false) ao clicar no checkbox
@@ -176,14 +177,8 @@ class SignIn extends Component {
   // TODO: Quando eu crio um cadastro novo, ao clicar no botão de enviar, ele tá aparecendo o alert que deu certo, tem que ver se isso não vai 
   //atrapalhar futuramente
   buscaCadastro = (cpf) => {
-    if (this.state.formCadastro.cpf.length === 11) {
-      console.log(cpf)
-      CadastroApi.consultar(cpf)
-        .then((r) => alert(`Deu certo! Resposta: ${r}`))
-        .catch((e) => alert(`Deu errado! Erro: ${e}`));
-    } else {
-      return;
-    }
+    CadastroApi.consultar(cpf)
+      .then((r) => alert(`Deu certo! Resposta: ${r}`))
   };
 
   render() {
@@ -221,7 +216,7 @@ class SignIn extends Component {
                   type="date"
                   value={formCadastro.dataNascimento}
                   name="dataNascimento"
-                  onChange={this.escutadorDeInputFormCadastroData}
+                  onChange={this.escutadorDeInputFormCadastro}
                   className={
                     this.state.erros.dataNascimento.length > 0
                       ? " is-invalid"
@@ -276,7 +271,6 @@ class SignIn extends Component {
                   value={formCadastro.cpf}
                   name="cpf"
                   onChange={this.escutadorDeInputFormCadastro}
-                  onBlur={this.buscaCadastro(formCadastro.cpf)}
                   className={
                     this.state.erros.cpf.length > 0 ? " is-invalid" : ""
                   }
@@ -541,7 +535,7 @@ class SignIn extends Component {
                   type="email"
                   value={formCadastro.email}
                   name="email"
-                  onChange={this.escutadorDeInputFormCadastroData}
+                  onChange={this.escutadorDeInputFormCadastro}
                   className={
                     this.state.erros.email.length > 0 ? " is-invalid" : ""
                   }
