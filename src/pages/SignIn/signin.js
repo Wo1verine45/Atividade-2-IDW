@@ -6,12 +6,14 @@ import CadastroApi from "../../Services/CadastroApi";
 import EnderecoApi from "../../Services/EnderecoApi";
 import InputMask from "react-input-mask";
 import ModalAlert from "../../components/ModalAlert/ModalAlert";
+import ModalAlert2 from "../../components/ModalAlert2/ModalAlert2";
 import "./signin.css";
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.modalRef = createRef();
+    this.modalRef2 = createRef();
     this.state = {
       listaEstados: [],
       formCadastro: {
@@ -46,12 +48,16 @@ class SignIn extends Component {
     this.modalRef.current.handleShow({ show: true, title, body });
   };
 
+  mostrarModal2 = (title) => {
+    this.modalRef2.current.handleShow({ show: true, title });
+  };
+
   // Função atualizada com todos seus usos em um lugar só
   escutadorDeInputFormCadastro = (event) => {
     const { name, value } = event.target;
     if (name === "cpf" || name === "cep") {
       if (name === "cpf") {
-        this.buscaCadastro(value.replaceAll(".", "").replace("-", ""))
+        this.buscaCadastro(value.replaceAll(".", "").replace("-", ""));
       }
       this.setState({
         formCadastro: {
@@ -165,18 +171,16 @@ class SignIn extends Component {
         } else if (e.response && e.response.data && e.response.data.message) {
           this.mostrarModal("Erro:", e.response.data.message);
         } else {
-          this.mostrarModal(
-            "Erro:",
-            "Ocorreu um erro ao tentar calcular seu IMC."
-          );
+          this.mostrarModal("Erro:", "Ocorreu um erro ao tentar te cadastrar.");
           console.log(e);
         }
       });
   };
 
   buscaCadastro = (cpf) => {
-    CadastroApi.consultar(cpf)
-      .then((r) => alert(`Deu certo! Resposta: ${r}`))
+    CadastroApi.consultar(cpf).then((r) =>
+      this.mostrarModal2("Você deseja atualizar ou deletar esse cadastro?")
+    );
   };
 
   render() {
@@ -575,6 +579,7 @@ class SignIn extends Component {
               >
                 Enviar
               </button>
+              <ModalAlert2 ref={this.modalRef2} />
               <ModalAlert ref={this.modalRef} />
             </div>
           </div>
