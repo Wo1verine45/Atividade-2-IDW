@@ -174,8 +174,6 @@ class SignIn extends Component {
       });
   };
 
-  // TODO: Quando eu crio um cadastro novo, ao clicar no botão de enviar, ele tá aparecendo o alert que deu certo, tem que ver se isso não vai 
-  //atrapalhar futuramente
   buscaCadastro = (cpf) => {
     CadastroApi.consultar(cpf)
       .then((r) => alert(`Deu certo! Resposta: ${r}`))
