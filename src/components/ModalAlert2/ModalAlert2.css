@@ -1,0 +1,62 @@
+.modal2 {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  background: var(--color-background-red-light);
+  z-index: 10;
+  width: 660px;
+  max-width: 80%;
+  padding: 10px 15px;
+}
+
+.modal-title2 {
+  padding: 20px;
+  font-weight: bold;
+}
+
+.modal-btn2 {
+  margin: 0px 61px;
+}
+
+.update-btn {
+  background-color: var(--color-background-yellow-light);
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: hsl(var(--color-danger-hue-yellow), 100%, 53.5%);
+}
+
+.update-btn:hover {
+  background-color: var(--color-background-yellow-dark);
+  color: hsl(var(--color-danger-hue-yellow), 100%, 60%);
+}
+
+.delete-btn {
+  background-color: var(--color-background-red-dark);
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: hsl(var(--color-danger-hue-red), 83%, 56.1%);
+}
+
+.delete-btn:hover {
+  background-color: var(--color-background-red-light);
+  color: hsl(var(--color-danger-hue-red), 83%, 60%);
+}
+
+.close-btn {
+  background-color: var(--color-background-green-light);
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: hsl(var(--color-danger-hue-green), 100%, 32.9%);
+}
+
+.close-btn:hover {
+  background-color: var(--color-background-green-dark);
+  color: hsl(var(--color-danger-hue-green), 100%, 40%);
+}

@@ -31,6 +31,6 @@
   );
   --color-background-green-dark: hsl(var(--color-base-hue-green), 100%, 23.5%);
   --color-background-green-light: hsl(var(--color-base-hue-green), 100%, 53.5%);
-  --color-background-red-dark: hsl(var(--color-base-hue-red), 83%, 56.1%);
+  --color-background-red-dark: hsl(var(--color-base-hue-red), 83%, 26.1%);
   --color-background-red-light: hsl(var(--color-base-hue-red), 83%, 56.1%);
 }

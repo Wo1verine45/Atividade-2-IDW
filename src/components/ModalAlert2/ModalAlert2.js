@@ -24,21 +24,21 @@ class ModalAlert2 extends Component {
           <Button
               variant="secondary"
               onClick={this.handleClose}
-              className="modal-btn2"
+              className="modal-btn2 update-btn"
             >
               Atualizar
             </Button>
             <Button
               variant="secondary"
               onClick={this.handleClose}
-              className="modal-btn2"
+              className="modal-btn2 delete-btn"
             >
               Deletar
             </Button>
             <Button
               variant="secondary"
               onClick={this.handleClose}
-              className="modal-btn2"
+              className="modal-btn2 close-btn"
             >
               Close
             </Button>
