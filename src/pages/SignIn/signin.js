@@ -579,7 +579,7 @@ class SignIn extends Component {
               >
                 Enviar
               </button>
-              <ModalAlert2 ref={this.modalRef2} />
+              <ModalAlert2 ref={this.modalRef2} cpf={formCadastro.cpf}/>
               <ModalAlert ref={this.modalRef} />
             </div>
           </div>

@@ -12,6 +12,11 @@ const CadastroApi = {
       `https://app.professordaniloalves.com.br/api/v1/cadastro/${cpf}`
     );
   },
+  deletar: (cpf) => {
+    return axios.delete(
+      `https://app.professordaniloalves.com.br/api/v1/cadastro/${cpf}`
+    );
+  },
 };
 
 export default CadastroApi;
