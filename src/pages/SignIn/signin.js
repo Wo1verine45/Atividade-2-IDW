@@ -183,6 +183,13 @@ class SignIn extends Component {
     );
   };
 
+  deletaCadastro = (cpf) => {
+    console.log(this.state.formCadastro.cpf);
+    CadastroApi.deletar(cpf).then((r) =>
+      alert("Cadastro deletado com sucesso")
+    );
+  };
+
   render() {
     const formCadastro = this.state.formCadastro;
     return (
@@ -579,7 +586,11 @@ class SignIn extends Component {
               >
                 Enviar
               </button>
-              <ModalAlert2 ref={this.modalRef2} cpf={formCadastro.cpf}/>
+              <ModalAlert2
+                ref={this.modalRef2}
+                cpf={formCadastro.cpf}
+                deletaCadastro={this.deletaCadastro}
+              />
               <ModalAlert ref={this.modalRef} />
             </div>
           </div>
