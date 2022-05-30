@@ -1,7 +1,5 @@
 import { Fragment, React, Component } from "react";
 import { Button, Modal } from "react-bootstrap";
-//import CadastroApi from "../../Services/CadastroApi";
-//import CadastroApi from "../../Services/CadastroApi";
 import "./ModalAlert2.css";
 
 class ModalAlert2 extends Component {

@@ -180,12 +180,15 @@ class SignIn extends Component {
       });
   };
 
+  // Função de buscar cadastro para verificar se o cpf digitado já foi ou não cadastrado, se foi, mostra um modal perguntando o que o usuário quer
+  //fazer, atualizar ou deletar esse cadastro
   buscaCadastro = (cpf) => {
     CadastroApi.consultar(cpf).then((r) =>
       this.mostrarModal2("Você deseja atualizar ou deletar esse cadastro?")
     );
   };
 
+  // Função que deleta o cadastro quando o usuário clica no botão de deletar no modal
   deletaCadastro = (cpf) => {
     console.log(this.state.formCadastro.cpf);
     CadastroApi.deletar(cpf).then((r) =>
@@ -193,6 +196,7 @@ class SignIn extends Component {
     );
   };
 
+  // Mesma função de cadastrar, mas dessa vez atualizando os dados do usuário
   atualizaFormularioCadastro = () => {
     this.resetErros();
     CadastroApi.atualizar(this.state.formCadastro)
@@ -237,27 +241,27 @@ class SignIn extends Component {
       });
   };
 
+  // Função que determina que o cadastro vai ser atualizado quando o usuário clica no botão de atualizar no modal
   handleAtualiza = (cpf) => {
     this.setState({ atualiza: !this.state.atualiza });
-    CadastroApi.consultar(cpf)
-      .then((r) => {
-        this.setState({
-          formCadastro: {
-            aceito: false,
-            id: r.data.id,
-            nomeCompleto: r.data.nomeCompleto,
-            dataNascimento: r.data.dataNascimento,
-            sexo: r.data.sexo,
-            cpf: r.data.cpf,
-            logradouro: r.data.logradouro,
-            numeroLogradouro: r.data.numeroLogradouro,
-            uf: r.data.uf,
-            cidade: r.data.cidade,
-            cep: r.data.cep,
-            email: r.data.email,
-          },
-        });
+    CadastroApi.consultar(cpf).then((r) => {
+      this.setState({
+        formCadastro: {
+          aceito: false,
+          id: r.data.id,
+          nomeCompleto: r.data.nomeCompleto,
+          dataNascimento: r.data.dataNascimento,
+          sexo: r.data.sexo,
+          cpf: r.data.cpf,
+          logradouro: r.data.logradouro,
+          numeroLogradouro: r.data.numeroLogradouro,
+          uf: r.data.uf,
+          cidade: r.data.cidade,
+          cep: r.data.cep,
+          email: r.data.email,
+        },
       });
+    });
     console.log(this.state.atualiza);
   };
 
@@ -659,7 +663,11 @@ class SignIn extends Component {
                 type="submit"
                 className="sign-in-btn"
                 disabled={this.state.formCadastro.aceito}
-                onClick={this.state.atualiza ? this.atualizaFormularioCadastro : this.enviarFormularioCadastro}
+                onClick={
+                  this.state.atualiza
+                    ? this.atualizaFormularioCadastro
+                    : this.enviarFormularioCadastro
+                }
               >
                 Enviar
               </button>
@@ -680,5 +688,3 @@ class SignIn extends Component {
 }
 
 export default SignIn;
-
-//TESTE
