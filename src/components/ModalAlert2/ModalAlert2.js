@@ -1,6 +1,7 @@
 import { Fragment, React, Component } from "react";
 import { Button, Modal } from "react-bootstrap";
 //import CadastroApi from "../../Services/CadastroApi";
+//import CadastroApi from "../../Services/CadastroApi";
 import "./ModalAlert2.css";
 
 class ModalAlert2 extends Component {
@@ -17,18 +18,17 @@ class ModalAlert2 extends Component {
 
     return (
       <Fragment>
-        <Modal
-          show={show}
-          onHide={[this.handleClose, this.props.deletaCadastro]}
-          className="modal2"
-        >
+        <Modal show={show} onHide={this.handleClose} className="modal2">
           <Modal.Header>
             <Modal.Title className="modal-title2">{title}</Modal.Title>
           </Modal.Header>
           <Modal.Footer>
             <Button
               variant="secondary"
-              onClick={this.handleClose}
+              onClick={() => {
+                this.props.handleAtualiza(this.props.cpf);
+                this.handleClose();
+              }}
               className="modal-btn2 update-btn"
             >
               Atualizar

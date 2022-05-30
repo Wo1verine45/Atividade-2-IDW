@@ -17,6 +17,12 @@ const CadastroApi = {
       `https://app.professordaniloalves.com.br/api/v1/cadastro/${cpf}`
     );
   },
+  atualizar: (data) => {
+    return axios.put(
+      `https://app.professordaniloalves.com.br/api/v1/cadastro`,
+      data
+    );
+  },
 };
 
 export default CadastroApi;

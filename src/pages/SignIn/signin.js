@@ -18,6 +18,7 @@ class SignIn extends Component {
       listaEstados: [],
       formCadastro: {
         aceito: true,
+        id: "",
         nomeCompleto: "",
         dataNascimento: "",
         sexo: "",
@@ -41,6 +42,7 @@ class SignIn extends Component {
         uf: [],
         email: [],
       },
+      atualiza: false,
     };
   }
 
@@ -145,6 +147,7 @@ class SignIn extends Component {
         this.setState({
           formCadastro: {
             aceito: true,
+            id: "",
             nomeCompleto: "",
             dataNascimento: "",
             sexo: "",
@@ -190,6 +193,74 @@ class SignIn extends Component {
     );
   };
 
+  atualizaFormularioCadastro = () => {
+    this.resetErros();
+    CadastroApi.atualizar(this.state.formCadastro)
+      .then((r) => {
+        this.mostrarModal("Sucesso!", r.data.message);
+        this.setState({
+          formCadastro: {
+            aceito: true,
+            id: "",
+            nomeCompleto: "",
+            dataNascimento: "",
+            sexo: "",
+            cpf: "",
+            logradouro: "",
+            numeroLogradouro: "",
+            uf: "",
+            cidade: "",
+            cep: "",
+            email: "",
+          },
+        });
+      })
+      .catch((e) => {
+        if (e.response && e.response.status === 422) {
+          let errosFormCadastro = {};
+          Object.entries(e.response.data.errors).forEach((obj, index) => {
+            index === 0 && document.querySelector(`[name=${[obj[0]]}`).focus();
+            errosFormCadastro = { ...errosFormCadastro, [obj[0]]: [obj[1]] };
+          });
+          this.setState({
+            erros: { ...this.state.erros, ...errosFormCadastro },
+          });
+        } else if (e.response && e.response.data && e.response.data.message) {
+          this.mostrarModal("Erro:", e.response.data.message);
+        } else {
+          this.mostrarModal(
+            "Erro:",
+            "Ocorreu um erro ao tentar atualizar esse cadastro."
+          );
+          console.log(e);
+        }
+      });
+  };
+
+  handleAtualiza = (cpf) => {
+    this.setState({ atualiza: !this.state.atualiza });
+    CadastroApi.consultar(cpf)
+      .then((r) => {
+        this.setState({
+          formCadastro: {
+            aceito: false,
+            id: r.data.id,
+            nomeCompleto: r.data.nomeCompleto,
+            dataNascimento: r.data.dataNascimento,
+            sexo: r.data.sexo,
+            cpf: r.data.cpf,
+            logradouro: r.data.logradouro,
+            numeroLogradouro: r.data.numeroLogradouro,
+            uf: r.data.uf,
+            cidade: r.data.cidade,
+            cep: r.data.cep,
+            email: r.data.email,
+          },
+        });
+      });
+    console.log(this.state.atualiza);
+  };
+
   render() {
     const formCadastro = this.state.formCadastro;
     return (
@@ -200,6 +271,12 @@ class SignIn extends Component {
             <div className="sign-in-container">
               <h2 className="sign-in-title">Cadastro</h2>
               <form className="sign-in-form">
+                <input
+                  type="hidden"
+                  value={formCadastro.id}
+                  name="id"
+                  id="id"
+                />
                 <label htmlFor="full-name">Nome Completo:</label>
                 <input
                   type="text"
@@ -582,7 +659,7 @@ class SignIn extends Component {
                 type="submit"
                 className="sign-in-btn"
                 disabled={this.state.formCadastro.aceito}
-                onClick={this.enviarFormularioCadastro}
+                onClick={this.state.atualiza ? this.atualizaFormularioCadastro : this.enviarFormularioCadastro}
               >
                 Enviar
               </button>
@@ -590,6 +667,7 @@ class SignIn extends Component {
                 ref={this.modalRef2}
                 cpf={formCadastro.cpf}
                 deletaCadastro={this.deletaCadastro}
+                handleAtualiza={this.handleAtualiza}
               />
               <ModalAlert ref={this.modalRef} />
             </div>
