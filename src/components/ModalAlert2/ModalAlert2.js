@@ -41,13 +41,6 @@ class ModalAlert2 extends Component {
             >
               Deletar
             </Button>
-            <Button
-              variant="secondary"
-              onClick={this.handleClose}
-              className="modal-btn2 close-btn"
-            >
-              Close
-            </Button>
           </Modal.Footer>
         </Modal>
       </Fragment>
